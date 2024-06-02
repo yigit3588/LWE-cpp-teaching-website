@@ -10,16 +10,7 @@ thesis_db = mysql.connector.connect(
 )
 
 
-""" 
 
-thesis_db = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="yigiT@8ersoz",
-  database="thesis",
-  auth_plugin='mysql_native_password'
-)
-"""
 
 def student_check(email , password):
 
