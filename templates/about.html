@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% include '_navbar.html' %}
+
+            {% if  request.args.get('message')  %}
+                <div class="row mt-3">
+                    <div class="col-md-6 offset-3">
+                        <div class="alert alert-success mt-3 fw-bold " role="alert">
+                            {{request.args.get('message')}}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="row mt-3">
+                <div class="col-md-6 offset-3">
+                    <div class="card border-2">
+                        <h5 class="card-header fs-3">About</h5>
+                        <div class="card-body fs-4">
+                            You can improve yourself in C++ on this website. You can learn about topics that you have difficulty 
+                            with up to intermediate level by going to the 'Topic' section. To test and improve yourself, 
+                            you can go to the 'Questions' section, solve your questions and compare them with other people's answers. 
+                            In this way, you will see multiple solutions and have the opportunity to improve yourself faster.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6 offset-3">
+                    <div class="card border-2">
+                        <h5 class="card-header fs-3">My Contact Information </h5>
+                        <div class="card-body fs-4">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-circle-user"></i> Yiğit ERSÖZ
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-at"></i> yigit3588@gmail.com
+                                </li>
+                                <a href="https://www.instagram.com/yigit_ersoz" class="list-group-item" target="_blank">
+                                    <i class="fa-brands fa-instagram"></i> 
+                                    https://www.instagram.com/yigit_ersoz
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3 mb-3">
+                <div class="col-md-6 offset-3">
+                    <div class="card border-2">
+                        <h5 class="card-header fs-3">To Send a Direct Message</h5>
+                        <div class="card-body">
+                            <form action="{{ url_for('send_message')}}" method="POST"> 
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" name="name_surname" id="name-surname" placeholder="" required >
+                                    <label for="name-surname">Name Surname</label>
+                                </div> 
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="" required>
+                                    <label for="email">E-mail</label>
+                                </div> 
+                                <div class="form-floating mb-3">
+                                    <textarea name="message" placeholder="" id="message" class="form-control" style="height: 150px;" required></textarea>
+                                    <label for="message">Your Message</label>
+                                </div> 
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-outline-success btn-lg font-weight-bold">
+                                        SEND
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script> 
+    </body>
+</html>

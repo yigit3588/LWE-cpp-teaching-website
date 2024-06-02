@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Index Page</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,regular,500,600,700" media="all">
+        <style>
+            body, html{
+                width: 100vw;height: 100vh;
+            }
+            .header{
+                background: -webkit-linear-gradient(to right, rgba(255, 0, 140, 0.8) , rgba(220, 83, 4, 0.938)); 
+                background: -o-linear-gradient(to right, rgba(255, 0, 140, 0.8) , rgba(220, 83, 4, 0.938)); 
+                background: -moz-linear-gradient(to right, rgba(255, 0, 140, 0.8) , rgba(220, 83, 4, 0.938)); 
+                background: linear-gradient(to right, rgba(255, 0, 140, 0.8) , rgba(220, 83, 4, 0.938)); 
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        </style>
+    </head>
+    <body style="background-image: url('static/images/logo.png');background-position: center center;background-repeat: no-repeat;background-size: cover;">
+        <div class="container-fluid">
+            {% include '_navbar.html' %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center mb-5 " style="margin-top:85px;font-size:80px;color:#333;font-family: 'Courier New', Courier, monospace !important;">
+                        <span class="header" style="font-size: 100px;">Achieve C++ Through</span> <br> 
+                        <div style="color:#ccc">Learn With Ersoz</div>
+                    </h1>
+                    <p class="text-center fs-2 mb-5" style="font-family: monospace;color:#ccc">
+                        
+                    <div class="text-center" style="margin-top: 370px;">
+                        {% if session.get('is_login') %}
+                            <a href="{{url_for('questions')}}" class="btn btn-secondary btn-lg px-5 pt-3 pb-3" style="font-size:35px;display:inline-block;font-family: monospace">GET STARTED</a>
+                        {% else %}
+                            <a href="{{url_for('register')}}" class="btn btn-secondary btn-lg px-5 pt-3 pb-3" style="font-size:35px;display:inline-block;font-family: monospace;">GET STARTED</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script> 
+    </body>
+</html>

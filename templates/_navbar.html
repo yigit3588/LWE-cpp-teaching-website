@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-12">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand mt-3" href="{{url_for('index')}}">
+                <img src="{{url_for('static', filename='images/logo.png')}}" id="logo" class="img-fluid rounded-circle mb-3 mx-auto d-block" />
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item ms-4">
+                    <a class="nav-link fs-4" href="{{url_for('topics')}}">
+                        <i class="fa-solid fa-book-open"></i> Topics
+                    </a>
+                  </li>
+                  <li class="nav-item ms-4">
+                    <a class="nav-link fs-4" href="{{url_for('questions')}}">
+                        <i class="fa-solid fa-clipboard-question"></i> Questions
+                    </a>
+                  </li>
+                  <li class="nav-item ms-4">
+                    <a class="nav-link fs-4" href="{{ url_for('about') }}">
+                        <i class="fa-solid fa-circle-info"></i> About
+                    </a>
+                  </li>
+                </ul>
+                <span class="navbar-text">
+                    {% if session.get('is_login') %}
+                        <div class="dropdown rounded border border-2">
+                            <a class="btn bg-muted dropdown-toggle fs-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-circle-user"></i> 
+                                <span class="text-secondary">{{ session.get('name') }} {{ session.get('surname') }}</span>
+                            </a>
+                        
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item fs-5" href="{{url_for('profile')}}">
+                                        <i class="fa-solid fa-circle-user"></i> Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item fs-5" href="{{url_for('change_password')}}">
+                                        <i class="fa-solid fa-unlock"></i> Change Password
+                                    </a>
+                                </li>
+
+                                {% if session.get('type') == 'admin' %}
+                                <li>
+                                    <a class="dropdown-item fs-5" href="{{url_for('admin_read_messages')}}">
+                                        <i class="fa-solid fa-receipt"></i> Messages Read(Admin Only)
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item fs-5" href="{{url_for('topic_manager')}}">
+                                        <i class="fa-solid fa-diagram-project"></i> Topic Manager(Admin Only)
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item fs-5" href="{{url_for('question_manager')}}">
+                                        <i class="fa-solid fa-circle-question"></i> Question Manager(Admin Only)
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                <li>
+                                    <a class="dropdown-item fs-5" href="{{url_for('logout')}}">
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <a href="{{url_for('login')}}" class="btn btn-secondary fw-bold ms-2">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            LOGIN
+                        </a>
+                        <a href="{{url_for('register')}}" class="btn btn-secondary fw-bold">
+                            <i class="fa-solid fa-user-plus"></i>
+                            REGISTER
+                        </a>
+                        
+                    {% endif %}
+                </span>
+              </div>
+            </div>
+        </nav>
+    </div>
+</div>

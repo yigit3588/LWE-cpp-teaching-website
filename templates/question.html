@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ question.get('title') }}</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/abbott.min.css"></link>
+
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% include '_navbar.html' %}
+            <div class="row mt-3 d-flex align-items-stretch">  
+                <div class="col-md-5">
+                    <div class="card border-3">
+                        <div class="card-body fs-4">
+                            <h3>{{ question.get('title') }}</h3> <hr>
+                            {{ question.get('instructions') }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="card border-3 mb-3">
+                        <input type="hidden" id="question-id" value="{{question.get('id')}}">
+                        <div class="card-body">
+                            <textarea class="form-control code" id="code" spellcheck="false" style="height:400px">{{question.get('solution')}}</textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end mb-2 me-3">
+                            <button type="button" class="btn btn-secondary btn-lg" id="submit">
+                                SUBMIT
+                            </button>
+                        </div>
+                        
+                    </div>
+
+                    <div class="card border-3 fs-5 mb-3">
+                        <div class="card-header fw-bold">
+                            Output/Errors :
+                        </div>
+                        <div class="card-body" id="test-result">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button type="button" class="btn btn-secondary">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+        <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/perl/perl.min.js"></script>
+
+        <script>hljs.highlightAll();</script>
+
+        <script>
+            var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+                lineNumbers: true,
+                mode: 'text/x-perl',
+                theme: 'abbott',
+                matchBrackets: true,
+            });
+
+            $(function(){
+                $("#submit").click(function(){
+                    $("#submit").text('Processing..').prop('disabled', true);
+                    const question_id   = $("#question-id").val();
+                    const code          = editor.getValue();
+                    //const code          = editor.mirror.getCode();
+                    console.log(editor.getValue())
+                    console.log(editor)
+                    $.ajax({
+                        url         : "/solved-questions-completed", 
+                        data        : {question_id : question_id, code:code},
+                        type        : "POST",
+                        dataType    : "JSON",
+                        success: function(data){
+                            console.log(data)
+                            if (data.status){
+                                $("#test-result").html(data.message);
+                            }else{
+                                $("#test-result").html(`<pre class="fs-6"><code class="language-cpp">${data.message}</code></pre>`);
+                            }
+                            $("#submit").text('SUBMIT').prop('disabled', false);
+                        }
+                    });
+                });
+
+                //$(".CodeMirror-lines").addClass('fs-6');
+            });
+        </script>
+    </body>
+</html>

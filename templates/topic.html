@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Topics </title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% include '_navbar.html' %}
+            <div class="row mt-3 mb-3">
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        {% for _topic in topics %}
+                            <a href="{{url_for('show_topic', slug=_topic.get('slug'), id=_topic.get('id') )}}" 
+                                class="list-group-item fs-5 {{ 'fw-bold list-group-item-dark' if _topic.get('id') == topic.get('id')  else '' }}">
+                                {{loop.index}}. 
+                                {{_topic.get('title')}}
+                            </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <div class="card border-2">
+                        <div class="card-body">
+                            <h3>{{topic.get('title') }}</h3>
+                            <hr>
+                            {{topic.get('content') | safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+        <script>hljs.highlightAll();</script>
+    </body>
+</html>

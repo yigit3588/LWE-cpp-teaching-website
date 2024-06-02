@@ -1,0 +1,11 @@
+#logo{
+    width: 75px;
+}
+
+.code{
+    font-family: monospace;
+    tab-size: 4;
+    font-size:21px;
+    outline:none;
+    color:#333;
+}

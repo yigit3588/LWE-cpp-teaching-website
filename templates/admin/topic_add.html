@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Topic</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% include '_navbar.html' %}
+
+            <div class="row mt-3">
+                <div class="col-md-6 offset-3">
+                    <div class="card border-2">
+                        <h5 class="card-header text-center">Add Topic</h5>
+                        <div class="card-body">
+                            <form action="{{url_for('add_topic_completed')}}" method="POST">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control form-control-lg" name="title" id="title" placeholder="" required >
+                                    <label for="title">Title </label>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" name="content"  placeholder="" id="content" style="height: 200px;" required></textarea>
+                                    <label for="content">Content</label>
+                                </div>
+                                <div class="row">
+                                    <div class="btn-group mt-3">
+                                        <button type="submit" class="btn btn-success btn-lg fw-bold">
+                                            <i class="fa-solid fa-plus"></i>
+                                            ADD
+                                        </button>
+                                        <a href="{{url_for('topic_manager')}}" class="btn btn-danger btn-lg fw-bold">
+                                            <i class="fa-solid fa-xmark"></i>
+                                            CANCEL
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script> 
+    </body>
+</html>

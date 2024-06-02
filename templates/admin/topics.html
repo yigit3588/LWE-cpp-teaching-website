@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Topics Manager</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% include '_navbar.html' %}
+
+            <div class="row mt-3">
+                <div class="col-md-6 offset-3">
+                    <div class="text-end">
+                        <a href="{{url_for('add_topic')}}" class="btn btn-success">
+                            <i class="fa-solid fa-plus"></i> ADD
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6 offset-3">
+                    <div class="card border-2">
+                        <h5 class="card-header text-center">
+                            Topic Manager ({{ topics | count }})
+                        </h5>
+                        
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Content</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    {% for topic in topics %}
+                                        <tr>
+                                            <th scope="row">{{loop.index}}</th>
+                                            <td>{{topic.get('title')}}</td>
+                                            <td>{{topic.get('content')}}</td>
+                                            <td>
+                                                <a href="{{url_for('edit_topic', id=topic.get('id'))}}" class="btn btn-warning mb-1">
+                                                    <i class="fa-solid fa-pen-to-square"></i> EDIT
+                                                </a>
+                                                <a href="delete-topic/{{topic.get('id')}}" class="btn btn-danger mb-1">
+                                                    <i class="fa-regular fa-trash-can"></i> DELETE
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script> 
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Topics </title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    </head>
+    <body>
+        <div class="container-fluid">
+            {% include '_navbar.html' %}
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <ul class="list-group">
+                        {% for topic in topics %}
+                            <a href="{{url_for('show_topic', slug=topic.get('slug'), id=topic.get('id') )}}" 
+                                class="list-group-item fs-5">
+                                {{loop.index}}. 
+                                {{topic.get('title')}}
+                            </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <div class="card border-2">
+                        <div class="card-body">
+                            c++ nedir ? <br>
+                            c++ guclu bir yazilim dilidir. vs vs    <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script> 
+    </body>
+</html>

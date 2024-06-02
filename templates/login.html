@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css') }}">
+        <style>
+            body, html{
+                height: 100vh;
+                width: 100vw;
+            }
+
+            #logo{
+                width: 175px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container h-100">
+            <div class="row h-100 d-flex justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="card border-3">
+                        <div class="card-body">
+                            <a href="{{url_for('index')}}">
+                                <img src="{{url_for('static', filename='images/logo.png')}}" id="logo" class="img-fluid rounded-circle mb-3 mx-auto d-block" />
+                            </a>
+                            
+                            {% if  request.args.get('message')  %}
+                                <div class="alert alert-danger" role="alert">
+                                    <b>{{ request.args.get('message') }}</b>
+                                </div>
+                            {% endif %}
+
+                            <form action="{{url_for('login_completed')}}" method="POST"> 
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="" required value="{{ request.args.get('email', '') }}">
+                                    <label for="email">Email </label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="" required>
+                                    <label for="password">Password </label>
+                                </div>
+    
+                                <div class="d-grid mb-2">
+                                    <button type="submit" class="btn btn-outline-success btn-lg font-weight-bold">
+                                        LOGIN
+                                    </button>
+                                </div>
+
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{url_for('forget_password')}}" class="me-2 fs-5 text-danger">Forget Password?</a>
+                                    <a href="{{url_for('register')}}" class="fs-5 text-info">Register</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+    </body>
+</html>
